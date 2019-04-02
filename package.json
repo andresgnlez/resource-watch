@@ -120,6 +120,7 @@
     "babel-eslint": "^9.0.0",
     "babel-preset-env": "1.6.0",
     "colors": "1.1.2",
+    "cypress": "^3.2.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "17.0.0",
     "eslint-config-prettier": "2.9.0",
@@ -137,7 +138,8 @@
     "lint": "eslint .",
     "dev": "node $NODE_DEBUG_OPTION index.js",
     "build": "better-npm-run build",
-    "start": "better-npm-run start"
+    "start": "better-npm-run start",
+    "cypress:open": "cypress open"
   },
   "betterScripts": {
     "build": {
