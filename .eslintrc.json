@@ -3,14 +3,18 @@
     "browser": true,
     "node": true,
     "mocha": true,
-    "es6": true
+    "es6": true,
+    "cypress/globals": true
   },
   "globals": {
     "L": true,
     "config": true,
     "Transifex": true
   },
-  "extends": "vizzuality",
+  "extends": [
+    "vizzuality",
+    "plugin:cypress/recommended"
+  ],
   "rules": {
     "class-methods-use-this": 0,
     "import/prefer-default-export": 0,
@@ -34,12 +38,12 @@
     "sourceType": "module"
   },
   "plugins": [
-    "babel"
+    "babel",
+    "cypress"
   ],
   "settings": {
     "import/resolver": {
-      "babel-module": {
-      }
+      "babel-module": {}
     }
   }
 }
