@@ -19,6 +19,7 @@ module.exports = (on, config) => {
 
   const newConfig = Object.assign({}, config);
   newConfig.baseUrl = `http://localhost:${process.env.PORT}`;
+  newConfig.env.WRI_API_URL = process.env.WRI_API_URL;
 
   return newConfig;
 };
