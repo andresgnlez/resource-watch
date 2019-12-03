@@ -47,6 +47,9 @@ class DashboardsLayout extends PureComponent {
           <div className="l-container">
             <div className="row">
               <div className="column small-12">
+                <h2>Featured dashboards</h2>
+                <p>Additional multiline text here.</p>
+                <p>Additional multiline text here.  </p>
                 <TopicThumbnailList
                   onSelect={({ slug }) => {
                     // We need to make an amendment in the Wysiwyg to have this working
