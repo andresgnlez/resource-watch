@@ -10,8 +10,8 @@ import Topics from 'layout/topics';
 class TopicsPage extends PureComponent {
   static async getInitialProps({ store }) {
     const { getState, dispatch } = store;
-    const { dashboards: { published } } = getState();
-    await dispatch(getStaticPage('topics'));
+    const { dashboards: { published }, staticPages: { topics } } = getState();
+    if (!Object.keys(topics).length) await dispatch(getStaticPage('topics'));
     if (!published.list.length) await dispatch(getPublishedDashboards());
 
     return {};
