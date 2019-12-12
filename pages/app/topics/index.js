@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 
 // actions
 import { getStaticPage } from 'modules/static-pages/actions';
-import { getPublishedDashboards } from 'modules/dashboards/actions';
+import { getHighlightedDashboards } from 'modules/dashboards/actions';
 
 // components
 import Topics from 'layout/topics';
@@ -10,9 +10,9 @@ import Topics from 'layout/topics';
 class TopicsPage extends PureComponent {
   static async getInitialProps({ store }) {
     const { getState, dispatch } = store;
-    const { dashboards: { published }, staticPages: { topics } } = getState();
+    const { dashboards: { isHighlighted }, staticPages: { topics } } = getState();
     if (!Object.keys(topics).length) await dispatch(getStaticPage('topics'));
-    if (!published.list.length) await dispatch(getPublishedDashboards());
+    if (!isHighlighted.list.length) await dispatch(getHighlightedDashboards());
 
     return {};
   }

@@ -9,6 +9,27 @@ export const setDashboard = createAction('DASHBOARDS__SET-DASHBOARD');
 export const setLoading = createAction('DASHBOARDS__SET-LOADING');
 export const setError = createAction('DASHBOARDS__SET-ERROR');
 
+export const getHighlightedDashboards = createThunkAction('DASHBOARDS__GET-HIGHLIGHTED-DASHBOARDS',
+  () => (dispatch) => {
+    const params = {
+      'is-highlighted': 'true',
+      includes: 'user'
+    };
+
+    dispatch(setLoading({ key: 'isHighlighted', value: true }));
+    dispatch(setError({ key: 'isHighlighted', value: null }));
+
+    return fetchDashboards(params)
+      .then((dashboards) => {
+        dispatch(setDashboards({ key: 'isHighlighted', value: dashboards }));
+        dispatch(setLoading({ key: 'isHighlighted', value: false }));
+      })
+      .catch((err) => {
+        dispatch(setError({ key: 'isHighlighted', value: err.message }));
+        dispatch(setLoading({ key: 'isHighlighted', value: false }));
+      });
+  });
+
 export const getPublishedDashboards = createThunkAction('DASHBOARDS__GET-PUBLISHED-DASHBOARDS',
   () => (dispatch) => {
     const params = {

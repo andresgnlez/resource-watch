@@ -5,7 +5,7 @@ import TopicsLayout from './component';
 export default connect(
   state => ({
     data: state.staticPages.topics,
-    dashboards: state.dashboards.published.list
+    dashboards: state.dashboards.isHighlighted.list
   }),
   null
 )(TopicsLayout);
