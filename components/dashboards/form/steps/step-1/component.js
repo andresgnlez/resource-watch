@@ -46,7 +46,12 @@ class Step1 extends PureComponent {
     const { child: wysiwyg } = FORM_ELEMENTS.elements.content;
 
     if (!isEmpty(this.props.form.content)) {
-      wysiwyg.setValue(this.props.form.content);
+      try {
+        JSON.parse(this.props.form.content);
+        wysiwyg.setValue(this.props.form.content);
+      } catch (e) {
+        wysiwyg.setValue(JSON.stringify(TEMPLATES[0].content));
+      }
     } else {
       wysiwyg.setValue(JSON.stringify(TEMPLATES[0].content));
     }
