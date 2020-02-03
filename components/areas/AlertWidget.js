@@ -50,6 +50,8 @@ class AlertWidget extends React.Component {
 
     const { areas } = user;
 
+    console.log(dataset);
+
     this.state = {
       area: areas.items.find(a => a.id === id),
       alertTable: null,
@@ -65,7 +67,7 @@ class AlertWidget extends React.Component {
       layerGroups: [{
         dataset: dataset ? dataset.id : null,
         visible: true,
-        layers: dataset ? dataset.layer.map((d, k) => ({
+        layers: dataset && dataset.layer ? dataset.layer.map((d, k) => ({
           active: k === 0,
           id: d.id,
           name: d.name,
@@ -80,9 +82,12 @@ class AlertWidget extends React.Component {
   componentDidMount() {
     const { area, layerGroups } = this.state;
 
-    getGeostore(area.attributes.geostore)
+    console.log(area);
+
+    fetchGeostore(area.geostore)
       .then(({ data }) => {
-        const geostore = { ...data.attributes, id: data.id, type: data.type };
+        console.log(data);
+        const geostore = data ? { ...data.attributes, id: data.id, type: data.type } : null;
 
         this.setState({ geostore });
       });
@@ -132,7 +137,7 @@ class AlertWidget extends React.Component {
 
   getAlertHistory(props) {
     const { subscriptionData, dataset } = props;
-    const layer = dataset ? dataset.layer.find(l => l.default) : null;
+    const layer = dataset && dataset.layer ? dataset.layer.find(l => l.default) : null;
 
     const o = {
       columns: [],
@@ -165,7 +170,8 @@ class AlertWidget extends React.Component {
 
   render() {
     const { dataset } = this.props;
-    const layer = dataset ? dataset.layer.find(l => l.default) : null;
+    console.log(dataset);
+    const layer = dataset && dataset.layer ? dataset.layer.find(l => l.default) : null;
     const { zoom, latLng, layerGroups, alertTable, geostore } = this.state;
 
     return (
@@ -219,28 +225,27 @@ class AlertWidget extends React.Component {
                   </MapControls>
 
                   <LayerManager map={map} plugin={PluginLeaflet}>
-                    {
-                      <React.Fragment>
-                        <Layer {...layer} />
-                        {geostore &&
-                          <Layer
-                            id={geostore.id}
-                            name="Geojson"
-                            provider="leaflet"
-                            layerConfig={{
+                    <React.Fragment>
+                      <Layer {...layer} />
+                      {geostore &&
+                      <Layer
+                        id={geostore.id}
+                        name="Geojson"
+                        provider="leaflet"
+                        layerConfig={{
                               type: 'geoJSON',
                               body: geostore.geojson
                             }}
                             // Interaction
-                            interactivity
-                            events={{
+                        interactivity
+                        events={{
                               mouseover: (e) => {
                                 console.info(e);
                               }
                             }}
-                          />
+                      />
                         }
-                      </React.Fragment>}
+                    </React.Fragment>
                   </LayerManager>
 
                 </React.Fragment>

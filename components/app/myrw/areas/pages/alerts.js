@@ -13,29 +13,58 @@ import AlertWidget from 'components/areas/AlertWidget';
 
 // Services
 import { fetchSubscription } from 'services/subscriptions';
+import { fetchArea } from 'services/areas';
+import { getUserAreas } from 'redactions/user';
 
 class AreasAlerts extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    isLoadSubscription: false,
+    subscriptionData: null
+  }
 
+  componentDidMount() {
+    const { user } = this.props;
+    getUserAreas(user.token);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isLoadSubscription } = this.state;
+    const { user } = this.props;
+    if (!isLoadSubscription && user.areas.items.length) {
+      this.getSubscription();
+    }
+  }
+
+  getSubscription = () => {
     const { user, id } = this.props;
-    const { subscription } = user.areas.items.find(alert => alert.id === id);
-
-    this.state = { subscriptionData: null };
-
-    fetchSubscription(subscription.id, user.token).then(((data) => {
-      this.setState({ subscriptionData: data });
+    const { subscriptions } = user.areas.items.find(alert => alert.id === id);
+    fetchSubscription(subscriptions[0].id, user.token).then(((data) => {
+      this.setState({ subscriptionData: data.data });
     }));
+    this.setState({ isLoadSubscription: true });
   }
 
   render() {
     const { user, id, alerts } = this.props;
     const { subscriptionData } = this.state;
-    const { subscription } = user.areas.items.find(alert => alert.id === id);
+    const { subscriptions } = user.areas.items.length ? user.areas.items.find(alert => alert.id === id) : {};
+    const subscription = subscriptions ? subscriptions[0] : {};
 
     return (
       <div className="c-alerts-page">
-        {subscription && subscription.attributes && subscription.attributes.datasets &&
+        {subscription && subscription.datasets &&
+          subscription.datasets.map((dataset, key) => (
+            <AlertWidget
+              key
+              dataset={dataset}
+              id={id}
+              layerGroup={id}
+              subscription={subscription}
+              subscriptionData={subscriptionData}
+            />
+          ))
+        }
+        {/* {subscription && subscription.attributes && subscription.attributes.datasets &&
           subscription.attributes.datasets.map((dataset, key) => (
             <AlertWidget
               key={id}
@@ -46,7 +75,7 @@ class AreasAlerts extends React.Component {
               subscriptionData={subscriptionData}
             />
           ))
-        }
+        } */}
         <p>
           This notification reports {id in alerts ? alerts[id].map(a => getLabel(a.dataset)).join(', ') : null} for the area of interest you subscribed to.
           You will receive a separate email for each area and each alert you subscribe to.
@@ -60,7 +89,8 @@ class AreasAlerts extends React.Component {
         </p>
 
         <p>
-          Please note that this information is subject to the <Link route="terms-of-service">
+          Please note that this information is subject to the
+          <Link route="terms-of-service">
             <a>Resource Watch Terms of Service</a>
           </Link>.
           You can unsubscribe or manage your subscriptions at
@@ -76,7 +106,8 @@ class AreasAlerts extends React.Component {
 AreasAlerts.propTypes = {
   id: PropTypes.string,
   user: PropTypes.object.isRequired,
-  alerts: PropTypes.object
+  alerts: PropTypes.object,
+  getUserAreas: PropTypes.func
 };
 
 const mapStateToProps = state => ({

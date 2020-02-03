@@ -12,16 +12,15 @@ import { logger } from 'utils/logs';
  * @param {Object} headers Request headers.
  * @returns {Object}
  */
-export const fetchArea = (id, params = {}, headers = {}) => {
+export const fetchArea = (id, token) => {
   logger.info(`Fetch area ${id}`);
   return WRIAPI.get(
-    `area/${id}`,
+    `area/${id}?application=${process.env.APPLICATIONS}&env=${process.env.API_ENV}`,
     {
       headers: {
-        ...headers,
+        Authorization: token,
         'Upgrade-Insecure-Requests': 1
-      },
-      params: { ...params }
+      }
     }
   )
     .then(response => WRISerializer(response.data))

@@ -482,7 +482,6 @@ export const getUserAreas = createThunkAction(
           subscriptions.forEach((_subscription) => {
             (_subscription.datasets || []).forEach(_dataset => datasetsToFetch.add(_dataset));
           });
-
           if (datasetsToFetch.size) {
             fetchDatasets({
               ids: [...datasetsToFetch].join(','),
@@ -501,6 +500,7 @@ export const getUserAreas = createThunkAction(
               });
           } else {
             dispatch(setUserAreas(userAreas));
+            dispatch(setUserAreasLoading(false));
           }
         }));
     }
