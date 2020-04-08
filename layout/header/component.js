@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Link } from 'routes';
-import MediaQuery from 'react-responsive';
+import { useMediaQuery } from 'react-responsive';
 
 // components
 import HeaderMenu from 'layout/header/header-menu';
@@ -15,68 +15,56 @@ import { breakpoints } from 'utils/responsive';
 // styles
 import './styles.scss';
 
-class Header extends PureComponent {
-  static propTypes = {
-    header: PropTypes.object.isRequired,
-    responsive: PropTypes.object.isRequired,
-    pageHeader: PropTypes.bool
-  };
+function Header(props) {
+  const {
+    header: { admin },
+    pageHeader
+  } = props;
+  const { medium } = breakpoints;
+  const headerClass = classnames(
+    'l-header',
+    { '-transparent': pageHeader }
+  );
+  const containerClass = classnames(
+    'l-container',
+    { '-admin': admin }
+  );
+  const mobileMode = useMediaQuery({ maxWidth: medium });
 
-  static defaultProps = { pageHeader: false };
-
-  render() {
-    const {
-      header: { admin },
-      pageHeader,
-      responsive: { fakeWidth }
-    } = this.props;
-    const { medium } = breakpoints;
-    const headerClass = classnames(
-      'l-header',
-      { '-transparent': pageHeader }
-    );
-    const containerClass = classnames(
-      'l-container',
-      { '-admin': admin }
-    );
-
-    return (
-      <header className={headerClass}>
-        <div className={containerClass}>
-          <div className="row">
-            <div className="column">
-              <div className="header-main">
-                <div className="header-logo">
-                  <Link route="home">
-                    <a>
-                      <Icon name="icon-rw-logo" className="brand-logo" />
-                      <h1 className="brand-title">Resource Watch</h1>
-                    </a>
-                  </Link>
-                </div>
-
-                {/* Mobile header */}
-                <MediaQuery
-                  maxDeviceWidth={medium - 1}
-                  values={{ deviceWidth: fakeWidth }}
-                >
-                  <HeaderMenuMobile />
-                </MediaQuery>
-
-                {/* Desktop header */}
-                <MediaQuery
-                  minDeviceWidth={medium}
-                  values={{ deviceWidth: fakeWidth }}
-                >
-                  <HeaderMenu />
-                </MediaQuery>
+  return (
+    <header className={headerClass}>
+      <div className={containerClass}>
+        <div className="row">
+          <div className="column">
+            <div className="header-main">
+              <div className="header-logo">
+                <Link route="home">
+                  <a>
+                    <Icon name="icon-rw-logo" className="brand-logo" />
+                    <h1 className="brand-title">Resource Watch</h1>
+                  </a>
+                </Link>
               </div>
+
+              {/* Mobile header */}
+              {mobileMode && <HeaderMenuMobile />}
+
+              {/* Desktop header */}
+              {!mobileMode && <HeaderMenu />}
             </div>
           </div>
         </div>
-      </header>
-    );
-  }
+      </div>
+    </header>
+  );
+
 }
+
+Header.propTypes = {
+  header: PropTypes.object.isRequired,
+  pageHeader: PropTypes.bool
+};
+
+Header.defaultProps = { pageHeader: false };
 
 export default Header;

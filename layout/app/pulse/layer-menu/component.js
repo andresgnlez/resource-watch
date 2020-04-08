@@ -70,7 +70,7 @@ class LayerMenuComponent extends PureComponent {
         <div>
           <MediaQuery
             maxWidth={breakpoints.medium}
-            values={{ deviceWidth: responsive.fakeWidth }}
+            device={{ deviceWidth: responsive.fakeWidth }}
           >
             <LayerMenuNative
               layers={layersGroup[0].layers}
@@ -79,7 +79,7 @@ class LayerMenuComponent extends PureComponent {
           </MediaQuery>
           <MediaQuery
             minWidth={breakpoints.medium + 1}
-            values={{ deviceWidth: responsive.fakeWidth }}
+            device={{ deviceWidth: responsive.fakeWidth }}
           >
             <div className="c-layer-menu">
               <div className="l-container">

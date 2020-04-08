@@ -180,14 +180,7 @@ class ExploreDatasetsComponent extends React.Component {
               onTagSelected={this.onTagSelected}
             />
           }
-          actions={
-            <MediaQuery
-              minDeviceWidth={breakpoints.medium}
-              values={{ deviceWidth: responsive.fakeWidth }}
-            >
-              <ExploreDatasetsActions />
-            </MediaQuery>
-          }
+          actions={<ExploreDatasetsActions />}
         />
 
         {!!list.length && total > limit &&

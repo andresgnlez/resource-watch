@@ -60,7 +60,7 @@ class ExploreDetailWidgetEditor extends PureComponent {
       <div className="c-explore-detail-widget-editor">
         <MediaQuery
           minDeviceWidth={breakpoints.large}
-          values={{ deviceWidth: responsive.fakeWidth }}
+          device={{ deviceWidth: responsive.fakeWidth }}
         >
           <WidgetEditor
             datasetId={dataset.id}
@@ -95,7 +95,7 @@ class ExploreDetailWidgetEditor extends PureComponent {
         {defaultEditableWidget &&
           <MediaQuery
             maxDeviceWidth={breakpoints.large - 1}
-            values={{ deviceWidth: responsive.fakeWidth }}
+            device={{ deviceWidth: responsive.fakeWidth }}
           >
             <div className="l-container">
               <div className="row">

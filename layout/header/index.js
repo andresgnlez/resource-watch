@@ -11,8 +11,7 @@ export { actions, reducers, initialState };
 export default connect(
   state => ({
     header: state.header,
-    user: state.user,
-    responsive: state.responsive
+    user: state.user
   }),
   actions
 )(Header);

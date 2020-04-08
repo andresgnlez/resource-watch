@@ -88,7 +88,7 @@ class DatasetListItem extends React.Component {
       setMapLayerGroupActive,
       layer
     } = this.props;
-
+    
     Router.pushRoute('explore', { dataset: dataset.slug });
 
     // Add default layer to the map only if not active already
@@ -101,7 +101,6 @@ class DatasetListItem extends React.Component {
 
   render() {
     const { dataset, metadata, actions, responsive, active } = this.props;
-
     const dateLastUpdated = getDateConsideringTimeZone(dataset.dataLastUpdated, true);
     const classNameValue = classnames({
       'c-explore-dataset-list-item': true,
@@ -119,7 +118,7 @@ class DatasetListItem extends React.Component {
         {/* CHART */}
         <MediaQuery
           minDeviceWidth={breakpoints.medium}
-          values={{ deviceWidth: responsive.fakeWidth }}
+          device={{ deviceWidth: responsive.fakeWidth }}
         >
           {this.renderChart()}
         </MediaQuery>
@@ -127,7 +126,7 @@ class DatasetListItem extends React.Component {
         {/* CHART MOBILE */}
         <MediaQuery
           maxDeviceWidth={breakpoints.medium}
-          values={{ deviceWidth: responsive.fakeWidth }}
+          device={{ deviceWidth: responsive.fakeWidth }}
         >
           <Link
             route="explore"

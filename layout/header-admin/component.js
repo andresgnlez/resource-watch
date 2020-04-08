@@ -55,7 +55,7 @@ class AdminHeader extends PureComponent {
                 {/* Mobile header */}
                 <MediaQuery
                   maxDeviceWidth={medium - 1}
-                  values={{ deviceWidth: fakeWidth }}
+                  device={{ deviceWidth: fakeWidth }}
                 >
                   <HeaderMenuMobile />
                 </MediaQuery>
@@ -63,7 +63,7 @@ class AdminHeader extends PureComponent {
                 {/* Desktop header */}
                 <MediaQuery
                   minDeviceWidth={medium}
-                  values={{ deviceWidth: fakeWidth }}
+                  device={{ deviceWidth: fakeWidth }}
                 >
                   <HeaderMenu />
                 </MediaQuery>

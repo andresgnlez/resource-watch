@@ -49,7 +49,7 @@ class ExploreDatasetsHeaderComponent extends PureComponent {
           {/* Desktop map */}
           <MediaQuery
             minDeviceWidth={breakpoints.medium}
-            values={{ deviceWidth: responsive.fakeWidth }}
+            device={{ deviceWidth: responsive.fakeWidth }}
           >
             <ExploreDatasetsMode />
           </MediaQuery>

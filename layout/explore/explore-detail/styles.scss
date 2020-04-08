@@ -6,6 +6,15 @@
     left: 0px;
     width: 530px;
     min-height: 100%;
+
+    &.-no-sidebar-mode {
+        top: 15 * $space;
+        width: 100%;
+
+        .c-spinner {
+            top: 75px;
+        }
+    }
     
     .content {
         background-color: $color-12;

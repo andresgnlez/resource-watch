@@ -102,14 +102,7 @@ function ExploreDiscover(props) {
           loading={highlightedDatasets.loading}
           numberOfPlaceholders={4}
           list={highlightedDatasets.list}
-          actions={
-            <MediaQuery
-              minDeviceWidth={breakpoints.medium}
-              values={{ deviceWidth: responsive.fakeWidth }}
-            >
-              <ExploreDatasetsActions />
-            </MediaQuery>
-          }
+          actions={<ExploreDatasetsActions />}
         />
       </div>
       <div className="related-topics discover-section">
@@ -166,14 +159,7 @@ function ExploreDiscover(props) {
           loading={recentlyAddedDatasets.loading}
           numberOfPlaceholders={4}
           list={recentlyAddedDatasets.list}
-          actions={
-            <MediaQuery
-              minDeviceWidth={breakpoints.medium}
-              values={{ deviceWidth: responsive.fakeWidth }}
-            >
-              <ExploreDatasetsActions />
-            </MediaQuery>
-          }
+          actions={<ExploreDatasetsActions />}
         />
       </div>
       <div className="recent-updated discover-section">
@@ -193,14 +179,7 @@ function ExploreDiscover(props) {
           loading={recentUpdatedDatasets.loading}
           numberOfPlaceholders={4}
           list={recentUpdatedDatasets.list}
-          actions={
-            <MediaQuery
-              minDeviceWidth={breakpoints.medium}
-              values={{ deviceWidth: responsive.fakeWidth }}
-            >
-              <ExploreDatasetsActions />
-            </MediaQuery>
-          }
+          actions={<ExploreDatasetsActions />}
         />
       </div>
     </div>

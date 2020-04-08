@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 // Components
 import Spinner from 'components/ui/Spinner';
@@ -28,10 +29,11 @@ class ExploreDetailComponent extends React.Component {
     dataset: PropTypes.object,
     datasetLoading: PropTypes.bool.isRequired,
     tags: PropTypes.array.isRequired,
-    setSidebarAnchor: PropTypes.func.isRequired
+    setSidebarAnchor: PropTypes.func.isRequired,
+    nosidebar: PropTypes.bool
   };
 
-  static defaultProps = { dataset: null };
+  static defaultProps = { dataset: null, nosidebar: false };
 
   // We clear the anchor value so that next time the component is open
   // the scroll is at the top
@@ -40,7 +42,7 @@ class ExploreDetailComponent extends React.Component {
   }
 
   render() {
-    const { dataset, datasetLoading, tags } = this.props;
+    const { dataset, datasetLoading, tags, nosidebar } = this.props;
     const metadata = dataset && dataset.metadata &&
       dataset.metadata.length > 0 && dataset.metadata[0];
     const info = metadata && metadata.info;
@@ -48,7 +50,10 @@ class ExploreDetailComponent extends React.Component {
     const dateLastUpdated = getDateConsideringTimeZone(dataset && dataset.dataLastUpdated);
 
     return (
-      <div className="c-explore-detail">
+      <div className={classnames({
+        'c-explore-detail': true,
+        '-no-sidebar-mode': nosidebar
+      })}>
         <Spinner isLoading={datasetLoading} className="-light" />
         { metadata &&
           <Fragment>

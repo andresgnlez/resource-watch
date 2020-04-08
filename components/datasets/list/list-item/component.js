@@ -103,7 +103,7 @@ class DatasetListItem extends React.Component {
         {/* CHART */}
         <MediaQuery
           minDeviceWidth={breakpoints.medium}
-          values={{ deviceWidth: responsive.fakeWidth }}
+          device={{ deviceWidth: responsive.fakeWidth }}
         >
           {this.renderChart()}
         </MediaQuery>
@@ -111,7 +111,7 @@ class DatasetListItem extends React.Component {
         {/* CHART MOBILE */}
         <MediaQuery
           maxDeviceWidth={breakpoints.medium}
-          values={{ deviceWidth: responsive.fakeWidth }}
+          device={{ deviceWidth: responsive.fakeWidth }}
         >
           <Link
             route="explore"

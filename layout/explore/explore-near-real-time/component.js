@@ -37,14 +37,7 @@ function ExploreNearRealTimeComponent(props) {
           loading={loading}
           numberOfPlaceholders={4}
           list={today}
-          actions={
-            <MediaQuery
-              minDeviceWidth={breakpoints.medium}
-              values={{ deviceWidth: responsive.fakeWidth }}
-            >
-              <ExploreDatasetsActions />
-            </MediaQuery>
-          }
+          actions={<ExploreDatasetsActions />}
         />
       </div>
       <div className="explore-near-real-time-section">
@@ -58,14 +51,7 @@ function ExploreNearRealTimeComponent(props) {
           loading={loading}
           numberOfPlaceholders={4}
           list={week}
-          actions={
-            <MediaQuery
-              minDeviceWidth={breakpoints.medium}
-              values={{ deviceWidth: responsive.fakeWidth }}
-            >
-              <ExploreDatasetsActions />
-            </MediaQuery>
-          }
+          actions={<ExploreDatasetsActions />}
         />
       </div>
       <div className="explore-near-real-time-section">
@@ -79,14 +65,7 @@ function ExploreNearRealTimeComponent(props) {
           loading={loading}
           numberOfPlaceholders={4}
           list={month}
-          actions={
-            <MediaQuery
-              minDeviceWidth={breakpoints.medium}
-              values={{ deviceWidth: responsive.fakeWidth }}
-            >
-              <ExploreDatasetsActions />
-            </MediaQuery>
-          }
+          actions={<ExploreDatasetsActions />}
         />
       </div>
     </div>

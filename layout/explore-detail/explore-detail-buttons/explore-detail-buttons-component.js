@@ -92,7 +92,7 @@ class ExploreDetailButtons extends PureComponent {
         {!!dataset.layer.length &&
           <MediaQuery
             minDeviceWidth={breakpoints.medium - 1}
-            values={{ deviceWidth: fakeWidth }}
+            device={{ deviceWidth: fakeWidth }}
           >
             <div>
               <Link

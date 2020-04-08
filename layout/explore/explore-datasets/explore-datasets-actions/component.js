@@ -28,7 +28,7 @@ class ExploreDatasetsActionsComponent extends PureComponent {
 
   isActive = () => {
     const { dataset, layerGroups } = this.props;
-    return !!layerGroups.find(l => l.dataset === dataset.id);
+    return dataset && !!layerGroups.find(l => l.dataset === dataset.id);
   }
 
   handleToggleLayerGroup = (event) => {
@@ -43,7 +43,7 @@ class ExploreDatasetsActionsComponent extends PureComponent {
   render() {
     const { dataset, layer, user } = this.props;
     const isActive = this.isActive();
-
+    
     const isInACollection = belongsToACollection(user, dataset);
     const starIconName = classnames({
       'icon-star-full': isInACollection,
